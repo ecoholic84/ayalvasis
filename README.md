@@ -10,18 +10,27 @@ A full-stack web application for designing and visualizing space habitats for lu
 
 ### Core Functionalities
 - **Interactive 3D Visualization** - Real-time habitat rendering with Three.js
+- **Drag-and-Drop Module Placement** - Interactive 3D module positioning system
+- **12 Functional Module Types** - NASA-standard areas (Life Support, Hygiene, Sleeping, etc.)
 - **Multiple Habitat Shapes** - Cylinder, Sphere, Dome, Torus, Cube
 - **Mission Configuration** - Set crew size, mission duration, and destination (Moon/Mars/Orbit)
-- **Volume Calculations** - Auto-calculate total volume and per-crew space
-- **Validation Engine** - Real-time feedback on NASA volume/spacing constraints
-- **Data Persistence** - Save and load habitat designs via REST API
+- **Intelligent Sizing** - Auto-calculate minimum module sizes based on crew and mission
+- **Volume Calculations** - Real-time total volume and per-crew space tracking
+- **Constraint Validation Engine** - Real-time feedback on NASA volume/spacing/adjacency rules
+- **Space Utilization Tracking** - Monitor how efficiently habitat volume is used
+- **Data Persistence** - Save and load complete habitat designs with module layouts
 - **NASA Presets** - Pre-configured layouts based on real mission designs
 
 ### UI Features
-- Space-themed dark UI with neon blue highlights
-- Sidebar controls for habitat configuration
-- Bottom metrics bar showing real-time statistics
-- Interactive 3D camera controls (orbit, zoom, pan)
+- **Space-themed dark UI** with neon blue highlights
+- **Sidebar controls** for habitat configuration
+- **Module Library** with 12 functional area types and sizing guidance
+- **Module Manager Panel** for real-time module overview and validation
+- **Floating Action Buttons** for quick access to module tools
+- **Enhanced Metrics Bar** showing habitat volume, module volume, space utilization, and compliance
+- **Interactive 3D camera controls** (orbit, zoom, pan)
+- **Visual feedback system** with color-coded validation states
+- **Hover labels** showing module details in 3D view
 
 ---
 
@@ -135,34 +144,107 @@ The frontend will open automatically at `http://localhost:3000/`
 
 ## 🎨 Usage
 
-1. **Configure Your Habitat**
+### 1. **Configure Your Habitat**
    - Use the sidebar to select shape, mission type, crew size, and dimensions
    - Watch the 3D visualization update in real-time
+   - Habitat becomes semi-transparent when modules are added
 
-2. **Monitor Metrics**
-   - Check the bottom bar for volume calculations and validation status
-   - Green ✅ = meets NASA constraints
-   - Red ❌ = insufficient space per crew member
+### 2. **Add Functional Modules**
+   - Click "➕ Add Module" to open the module library
+   - Select from 12 NASA-standard module types
+   - System auto-calculates minimum size based on crew
+   - Adjust dimensions if needed
+   - Review adjacency recommendations and restrictions
 
-3. **Save Your Design**
-   - Click "💾 Save Habitat" to persist your design to the database
+### 3. **Arrange Your Layout**
+   - **Drag modules** in 3D space to position them
+   - Hover over modules to see details
+   - Click to select (module glows and bounces)
+   - Modules stay within habitat boundaries
+   - Real-time validation feedback
+
+### 4. **Manage Modules**
+   - Click "📋 Modules" to open the Module Manager
+   - View all placed modules with details
+   - See validation errors and warnings
+   - Delete modules with 🗑️ button
+   - Click module in list to select in 3D
+
+### 5. **Monitor Metrics**
+   - Check the bottom bar for real-time statistics:
+     - **Habitat Volume** - Total available space
+     - **Module Volume** - Space occupied
+     - **Space Utilization** - Efficiency percentage
+     - **Volume per Crew** - NASA compliance
+     - **Status** - Overall validation
+   - Color coding:
+     - ✅ Green = meets NASA constraints
+     - ⚠️ Orange = warnings
+     - ❌ Red = errors/insufficient space
+
+### 6. **Validate Your Design**
+   - System checks for:
+     - Minimum volume per crew (15 m³)
+     - Module size requirements
+     - Critical modules present
+     - Adjacency recommendations
+   - Address errors (red) before saving
+   - Review warnings (orange) for optimization
+
+### 7. **Save Your Design**
+   - Click "💾 Save Habitat" to persist complete design
+   - Includes habitat config + all module positions
    - Click "📂 Load Habitat" to retrieve saved designs
 
-4. **Explore Presets**
+### 8. **Explore Presets**
    - Load NASA preset layouts for inspiration
    - Modify and save your own variations
 
 ---
 
+## 📦 Module Types
+
+### Critical Modules (Must-Have)
+- 🌬️ **Environmental Control & Life Support** - Air, water, temperature
+- 🚿 **Hygiene & Waste Management** - Toilet, shower, waste
+- 🛏️ **Crew Quarters** - Sleep stations, privacy
+- 🍽️ **Galley & Food Preparation** - Food storage, heating, dining
+
+### High Priority
+- 🏃 **Exercise & Fitness** - Cardiovascular equipment
+- ⚕️ **Medical Bay** - First aid, medical equipment
+- 📦 **Storage & Logistics** - Supplies, spare parts
+- 🚪 **Airlock & EVA Prep** - Suit donning, egress
+- 🖥️ **Command & Control** - Navigation, communications
+
+### Medium Priority
+- 🔧 **Maintenance & Repair** - Tools, workbench
+- 🎮 **Recreation** - Social space, entertainment
+- 🔬 **Research & Science** - Laboratory, experiments
+
+Each module has:
+- **Minimum volume** based on crew size
+- **Adjacency preferences** (recommended neighbors)
+- **Adjacency restrictions** (avoid placing near)
+- **Priority level** (critical, high, medium)
+
+See [INTERACTIVE_FEATURES.md](INTERACTIVE_FEATURES.md) for detailed usage guide.
+
+---
+
 ## 🌟 Future Enhancements
 
-- [ ] Drag-and-drop module placement in 3D space
+- [x] ~~Drag-and-drop module placement in 3D space~~ ✅ **COMPLETE**
+- [x] ~~Advanced validation rules (adjacency, access paths)~~ ✅ **COMPLETE**
+- [ ] Snap-to-grid for precise alignment
+- [ ] Module rotation controls
 - [ ] Multi-level/deck support
 - [ ] AI-powered layout suggestions
 - [ ] Export designs as `.glb` or `.json`
 - [ ] Comparison with NASA Artemis Base Camp
 - [ ] Social sharing of layouts
-- [ ] Advanced validation rules (adjacency, access paths)
+- [ ] Collision detection between modules
+- [ ] Auto-arrange feature
 
 ---
 

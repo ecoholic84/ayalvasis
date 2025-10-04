@@ -3,8 +3,11 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import Sidebar from './components/Sidebar';
 import MetricsBar from './components/MetricsBar';
+import ModuleLibrary from './components/ModuleLibrary';
+import ModuleManager from './components/ModuleManager';
 import HabitatScene from './threejs/HabitatScene';
 import { habitatApi } from './api/habitatApi';
+import { calculateMinimumHabitatVolume } from './data/moduleLibrary';
 import './App.css';
 
 export default function App() {
@@ -22,6 +25,10 @@ export default function App() {
 
   const [totalVolume, setTotalVolume] = useState(0);
   const [savedHabitats, setSavedHabitats] = useState([]);
+  const [modules, setModules] = useState([]);
+  const [selectedModuleId, setSelectedModuleId] = useState(null);
+  const [showModuleLibrary, setShowModuleLibrary] = useState(false);
+  const [showModuleManager, setShowModuleManager] = useState(false);
 
   // Calculate volume whenever config changes
   useEffect(() => {
@@ -52,11 +59,33 @@ export default function App() {
     }
   };
 
+  // Module management
+  const handleAddModule = (module) => {
+    setModules([...modules, module]);
+    setSelectedModuleId(module.id);
+  };
+
+  const handleDeleteModule = (moduleId) => {
+    setModules(modules.filter(m => m.id !== moduleId));
+    if (selectedModuleId === moduleId) {
+      setSelectedModuleId(null);
+    }
+  };
+
+  const handleModulePositionChange = (moduleId, newPosition) => {
+    setModules(modules.map(m => 
+      m.id === moduleId ? { ...m, position: newPosition } : m
+    ));
+  };
+
   const handleSave = async () => {
     try {
       const dataToSave = {
         ...config,
         total_volume: totalVolume,
+        layout_data: {
+          modules: modules,
+        },
       };
       const result = await habitatApi.createHabitat(dataToSave);
       alert(`Habitat "${result.name}" saved successfully! ID: ${result.id}`);
@@ -84,6 +113,9 @@ export default function App() {
         const lastHabitat = savedHabitats[0];
         const fullHabitat = await habitatApi.getHabitat(lastHabitat.id);
         setConfig(fullHabitat);
+        if (fullHabitat.layout_data && fullHabitat.layout_data.modules) {
+          setModules(fullHabitat.layout_data.modules);
+        }
         alert(`Loaded habitat: ${fullHabitat.name}`);
       } else {
         alert('No saved habitats found.');
@@ -93,6 +125,8 @@ export default function App() {
       alert('Failed to load habitat. Make sure the backend is running.');
     }
   };
+
+  const minRecommendedVolume = calculateMinimumHabitatVolume(config.crew_size, config.mission_duration);
 
   return (
     <div className="app">
@@ -108,7 +142,13 @@ export default function App() {
           camera={{ position: [15, 15, 15], fov: 50 }}
           shadows
         >
-          <HabitatScene config={config} />
+          <HabitatScene 
+            config={config} 
+            modules={modules}
+            selectedModuleId={selectedModuleId}
+            onSelectModule={setSelectedModuleId}
+            onModulePositionChange={handleModulePositionChange}
+          />
           <OrbitControls
             enablePan={true}
             enableZoom={true}
@@ -117,9 +157,54 @@ export default function App() {
             maxDistance={50}
           />
         </Canvas>
+
+        {/* Floating action buttons */}
+        <div className="floating-controls">
+          <button 
+            className="fab fab-primary"
+            onClick={() => setShowModuleLibrary(true)}
+            title="Add Module"
+          >
+            ➕ Add Module
+          </button>
+          <button 
+            className="fab fab-secondary"
+            onClick={() => setShowModuleManager(!showModuleManager)}
+            title="Manage Modules"
+          >
+            📋 Modules ({modules.length})
+          </button>
+        </div>
+
+        {/* Module Manager Panel */}
+        {showModuleManager && (
+          <div className="module-manager-panel">
+            <ModuleManager
+              modules={modules}
+              selectedModuleId={selectedModuleId}
+              onSelectModule={setSelectedModuleId}
+              onDeleteModule={handleDeleteModule}
+              crewSize={config.crew_size}
+            />
+          </div>
+        )}
       </div>
 
-      <MetricsBar config={config} totalVolume={totalVolume} />
+      <MetricsBar 
+        config={config} 
+        totalVolume={totalVolume}
+        modules={modules}
+        minRecommendedVolume={minRecommendedVolume}
+      />
+
+      {/* Module Library Modal */}
+      {showModuleLibrary && (
+        <ModuleLibrary
+          crewSize={config.crew_size}
+          onAddModule={handleAddModule}
+          onClose={() => setShowModuleLibrary(false)}
+        />
+      )}
     </div>
   );
 }

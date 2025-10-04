@@ -12,3 +12,57 @@
   right: 0;
   bottom: 60px;
 }
+
+.floating-controls {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 10;
+}
+
+.fab {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  white-space: nowrap;
+}
+
+.fab-primary {
+  background: #29b6f6;
+  color: #141b2d;
+}
+
+.fab-primary:hover {
+  background: #4dd0e1;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(41, 182, 246, 0.4);
+}
+
+.fab-secondary {
+  background: #1e2235;
+  color: #29b6f6;
+  border: 2px solid #29b6f6;
+}
+
+.fab-secondary:hover {
+  background: #29b6f6;
+  color: #141b2d;
+  transform: translateY(-2px);
+}
+
+.module-manager-panel {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 350px;
+  max-height: calc(100% - 40px);
+  z-index: 10;
+}

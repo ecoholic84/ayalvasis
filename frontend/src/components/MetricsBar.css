@@ -40,3 +40,11 @@
 .metric-value.invalid {
   color: #f44336;
 }
+
+.metric-value.warning {
+  color: #ff9800;
+}
+
+.metric-value.info {
+  color: #29b6f6;
+}
