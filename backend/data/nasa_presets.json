@@ -1,0 +1,126 @@
+{
+  "presets": [
+    {
+      "name": "NASA Artemis Base Camp",
+      "description": "Lunar surface habitat for 4 crew members",
+      "shape": "cylinder",
+      "crew_size": 4,
+      "mission_duration": 180,
+      "mission_type": "moon",
+      "dimension_x": 8.0,
+      "dimension_y": 6.0,
+      "dimension_z": 8.0,
+      "layout_data": {
+        "modules": [
+          {
+            "type": "life_support",
+            "name": "Environmental Control",
+            "position": [0, 0, 0],
+            "size": [2, 2, 2],
+            "color": "#4caf50"
+          },
+          {
+            "type": "sleeping",
+            "name": "Crew Quarters",
+            "position": [3, 0, 0],
+            "size": [2, 2, 2],
+            "color": "#2196f3"
+          },
+          {
+            "type": "food_prep",
+            "name": "Galley",
+            "position": [0, 0, 3],
+            "size": [2, 2, 2],
+            "color": "#ff9800"
+          },
+          {
+            "type": "hygiene",
+            "name": "Waste Management",
+            "position": [3, 0, 3],
+            "size": [1.5, 2, 1.5],
+            "color": "#9c27b0"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Mars Transit Habitat",
+      "description": "Long-duration transit habitat for Mars missions",
+      "shape": "cylinder",
+      "crew_size": 6,
+      "mission_duration": 270,
+      "mission_type": "mars",
+      "dimension_x": 12.0,
+      "dimension_y": 8.0,
+      "dimension_z": 12.0,
+      "layout_data": {
+        "modules": [
+          {
+            "type": "life_support",
+            "name": "ECLSS",
+            "position": [0, 0, 0],
+            "size": [3, 2, 3],
+            "color": "#4caf50"
+          },
+          {
+            "type": "sleeping",
+            "name": "Sleep Stations",
+            "position": [4, 0, 0],
+            "size": [3, 2, 3],
+            "color": "#2196f3"
+          },
+          {
+            "type": "exercise",
+            "name": "Fitness Area",
+            "position": [0, 0, 4],
+            "size": [2, 2, 2],
+            "color": "#f44336"
+          },
+          {
+            "type": "medical",
+            "name": "Medical Bay",
+            "position": [3, 0, 4],
+            "size": [2, 2, 2],
+            "color": "#e91e63"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ISS Module",
+      "description": "International Space Station module design",
+      "shape": "cylinder",
+      "crew_size": 3,
+      "mission_duration": 90,
+      "mission_type": "orbit",
+      "dimension_x": 6.0,
+      "dimension_y": 10.0,
+      "dimension_z": 6.0,
+      "layout_data": {
+        "modules": [
+          {
+            "type": "life_support",
+            "name": "Life Support",
+            "position": [0, 0, 0],
+            "size": [2, 2, 2],
+            "color": "#4caf50"
+          },
+          {
+            "type": "sleeping",
+            "name": "Sleep Compartments",
+            "position": [0, 3, 0],
+            "size": [2, 2, 2],
+            "color": "#2196f3"
+          },
+          {
+            "type": "stowage",
+            "name": "Storage",
+            "position": [0, 6, 0],
+            "size": [2, 2, 2],
+            "color": "#607d8b"
+          }
+        ]
+      }
+    }
+  ]
+}

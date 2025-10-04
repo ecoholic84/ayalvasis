@@ -1,0 +1,14 @@
+.app {
+  width: 100vw;
+  height: 100vh;
+  background: #141b2d;
+  overflow: hidden;
+}
+
+.canvas-container {
+  position: fixed;
+  left: 320px;
+  top: 0;
+  right: 0;
+  bottom: 60px;
+}
