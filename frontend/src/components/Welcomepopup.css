@@ -1,0 +1,284 @@
+/* Welcome Popup - Minecraft/Retro Theme */
+
+.welcome-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+  overflow: hidden;
+}
+
+/* Background Slideshow */
+.welcome-bg-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.welcome-bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+}
+
+.welcome-bg-image.active {
+  opacity: 1;
+}
+
+.welcome-bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(3px);
+}
+
+/* Modal */
+.welcome-modal {
+  position: relative;
+  z-index: 2;
+  background: #2d2d2d;
+  border: 6px solid #000000;
+  box-shadow: 12px 12px 0px #000000;
+  padding: 40px 50px;
+  max-width: 700px;
+  width: 90%;
+  animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Header */
+.welcome-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.welcome-icon {
+  font-size: 5rem;
+  margin-bottom: 16px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.welcome-title {
+  margin: 0;
+  color: #ffff55;
+  font-size: 2rem;
+  font-family: 'Press Start 2P', monospace;
+  text-shadow: 4px 4px 0px #000000;
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+
+.welcome-subtitle {
+  color: #55ff55;
+  font-size: 0.7rem;
+  font-family: 'Press Start 2P', monospace;
+  text-shadow: 2px 2px 0px #000000;
+  letter-spacing: 2px;
+}
+
+/* Features */
+.welcome-features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 30px 0;
+}
+
+.feature-item {
+  background: #1a1a1a;
+  border: 4px solid #555555;
+  padding: 16px 12px;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.feature-item:hover {
+  border-color: #55ff55;
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0px #000000;
+}
+
+.feature-icon {
+  display: block;
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.feature-text {
+  display: block;
+  color: #ffffff;
+  font-size: 0.5rem;
+  font-family: 'Press Start 2P', monospace;
+  line-height: 1.6;
+  text-shadow: 1px 1px 0px #000000;
+}
+
+/* Description */
+.welcome-description {
+  color: #aaaaaa;
+  font-size: 0.65rem;
+  font-family: 'Press Start 2P', monospace;
+  line-height: 1.8;
+  text-align: center;
+  margin: 30px 0;
+  text-shadow: 1px 1px 0px #000000;
+}
+
+/* Button */
+.welcome-button {
+  display: block;
+  width: 100%;
+  padding: 18px;
+  background: #55ff55;
+  border: 6px solid #000000;
+  color: #000000;
+  font-size: 0.9rem;
+  font-family: 'Press Start 2P', monospace;
+  cursor: pointer;
+  transition: all 0.15s;
+  box-shadow: 6px 6px 0px #000000;
+  margin: 30px 0 20px 0;
+}
+
+.welcome-button:hover {
+  background: #aaffaa;
+  transform: translate(-3px, -3px);
+  box-shadow: 9px 9px 0px #000000;
+}
+
+.welcome-button:active {
+  transform: translate(0, 0);
+  box-shadow: 3px 3px 0px #000000;
+}
+
+.button-text {
+  display: inline-block;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Footer */
+.welcome-footer {
+  text-align: center;
+  color: #777777;
+  font-size: 0.5rem;
+  font-family: 'Press Start 2P', monospace;
+  line-height: 1.6;
+  padding-top: 20px;
+  border-top: 3px solid #555555;
+}
+
+.welcome-footer kbd {
+  display: inline-block;
+  padding: 3px 8px;
+  background: #1a1a1a;
+  border: 2px solid #555555;
+  color: #ffff55;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.5rem;
+  margin: 0 4px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .welcome-modal {
+    padding: 30px 25px;
+    width: 95%;
+  }
+
+  .welcome-title {
+    font-size: 1.2rem;
+  }
+
+  .welcome-subtitle {
+    font-size: 0.5rem;
+  }
+
+  .welcome-features {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .feature-text {
+    font-size: 0.55rem;
+  }
+
+  .welcome-description {
+    font-size: 0.55rem;
+  }
+
+  .welcome-button {
+    font-size: 0.7rem;
+    padding: 14px;
+  }
+
+  .welcome-footer {
+    font-size: 0.45rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome-icon {
+    font-size: 3rem;
+  }
+
+  .welcome-title {
+    font-size: 0.9rem;
+  }
+
+  .welcome-subtitle {
+    font-size: 0.4rem;
+  }
+
+  .feature-icon {
+    font-size: 1.5rem;
+  }
+
+  .feature-text {
+    font-size: 0.45rem;
+  }
+}

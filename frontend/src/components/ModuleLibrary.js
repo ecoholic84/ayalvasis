@@ -10,7 +10,8 @@ export default function ModuleLibrary({ crewSize, onAddModule, onClose }) {
   const handleSelectType = (typeKey) => {
     setSelectedType(typeKey);
     const recommended = getRecommendedDimensions(typeKey, crewSize);
-    setCustomSize(recommended);
+    // Override height to always be 2
+    setCustomSize({ ...recommended, height: 2 });
   };
 
   // Get array of module types for circular layout

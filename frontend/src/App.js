@@ -7,6 +7,7 @@ import ModuleManager from './components/ModuleManager';
 import ModuleProperties from './components/ModuleProperties';
 import PresetSelector from './components/PresetSelector';
 import ZoomIndicator from './components/ZoomIndicator';
+import WelcomePopup from './components/Welcomepopup';
 import HabitatScene from './threejs/HabitatScene';
 import MinecraftControls from './threejs/MinecraftControls';
 import { habitatApi } from './api/habitatApi';
@@ -21,7 +22,7 @@ export default function App() {
     mission_duration: 30,
     mission_type: 'moon',
     dimension_x: 10.0,
-    dimension_y: 10.0,
+    dimension_y: 2.0,
     dimension_z: 10.0,
     layout_data: {},
   });
@@ -34,6 +35,7 @@ export default function App() {
   const [showModuleManager, setShowModuleManager] = useState(false);
   const [showPresetSelector, setShowPresetSelector] = useState(false);
   const [editingModule, setEditingModule] = useState(null);
+  const [sidebarVisible, setSidebarVisible] = useState(true);
 
   // 🔹 Recalculate habitat volume when config changes
   useEffect(() => {
@@ -189,13 +191,27 @@ export default function App() {
   // ✅ Fixed return with Fragment
   return (
     <div className="app">
-      <Sidebar
-        config={config}
-        onConfigChange={setConfig}
-        onSave={handleSave}
-        onLoad={handleLoad}
-        onLoadPreset={() => setShowPresetSelector(true)}
-      />
+      {/* Welcome Popup */}
+      <WelcomePopup />
+
+      {/* Sidebar Toggle Button */}
+      <button 
+        className={`sidebar-toggle ${sidebarVisible ? 'visible' : 'hidden'}`}
+        onClick={() => setSidebarVisible(!sidebarVisible)}
+        title={sidebarVisible ? 'Hide Sidebar' : 'Show Sidebar'}
+      >
+        {sidebarVisible ? '◀' : '▶'}
+      </button>
+
+      {sidebarVisible && (
+        <Sidebar
+          config={config}
+          onConfigChange={setConfig}
+          onSave={handleSave}
+          onLoad={handleLoad}
+          onLoadPreset={() => setShowPresetSelector(true)}
+        />
+      )}
       
       <div className="canvas-container">
         <Canvas
