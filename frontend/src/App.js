@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
 import Sidebar from './components/Sidebar';
 import MetricsBar from './components/MetricsBar';
 import ModuleLibrary from './components/ModuleLibrary';
 import ModuleManager from './components/ModuleManager';
+import ZoomIndicator from './components/ZoomIndicator';
 import HabitatScene from './threejs/HabitatScene';
+import MinecraftControls from './threejs/MinecraftControls';
 import { habitatApi } from './api/habitatApi';
 import { calculateMinimumHabitatVolume } from './data/moduleLibrary';
 import './App.css';
@@ -35,6 +36,21 @@ export default function App() {
     const volume = calculateVolume(config);
     setTotalVolume(volume);
   }, [config]);
+
+  // Keyboard shortcut to open module library
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key === 'n' || event.key === 'N') {
+        // Don't trigger if user is typing in an input field
+        if (event.target.tagName !== 'INPUT' && event.target.tagName !== 'TEXTAREA') {
+          setShowModuleLibrary(true);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, []);
 
   const calculateVolume = (cfg) => {
     const { shape, dimension_x, dimension_y, dimension_z } = cfg;
@@ -149,12 +165,15 @@ export default function App() {
             onSelectModule={setSelectedModuleId}
             onModulePositionChange={handleModulePositionChange}
           />
-          <OrbitControls
+          <MinecraftControls
             enablePan={true}
             enableZoom={true}
             enableRotate={true}
             minDistance={5}
-            maxDistance={50}
+            maxDistance={80}
+            zoomSpeed={1.5}
+            followCursor={true}
+            followSpeed={0.05}
           />
         </Canvas>
 
@@ -175,6 +194,9 @@ export default function App() {
             📋 Modules ({modules.length})
           </button>
         </div>
+
+        {/* Zoom Indicator */}
+        <ZoomIndicator />
 
         {/* Module Manager Panel */}
         {showModuleManager && (

@@ -4,12 +4,13 @@
   left: 320px;
   right: 0;
   height: 60px;
-  background: #1e2235;
+  background: #2d2d2d;
   display: flex;
   align-items: center;
   justify-content: space-around;
   padding: 0 20px;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 -4px 0px #000000;
+  border-top: 4px solid #000000;
   z-index: 100;
 }
 
@@ -21,30 +22,34 @@
 }
 
 .metric-label {
-  color: #b0bec5;
-  font-size: 0.75rem;
+  color: #aaaaaa;
+  font-size: 0.5rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  font-family: 'Press Start 2P', monospace;
+  text-shadow: 1px 1px 0px #000000;
 }
 
 .metric-value {
-  color: #29b6f6;
-  font-size: 1.1rem;
-  font-weight: 600;
+  color: #ffff55;
+  font-size: 0.8rem;
+  font-weight: 400;
+  font-family: 'Press Start 2P', monospace;
+  text-shadow: 2px 2px 0px #000000;
 }
 
 .metric-value.valid {
-  color: #4caf50;
+  color: #55ff55;
 }
 
 .metric-value.invalid {
-  color: #f44336;
+  color: #ff5555;
 }
 
 .metric-value.warning {
-  color: #ff9800;
+  color: #ffaa00;
 }
 
 .metric-value.info {
-  color: #29b6f6;
+  color: #55ffff;
 }

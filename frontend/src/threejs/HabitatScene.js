@@ -25,15 +25,16 @@ function Habitat({ shape, dimensions, showWireframe }) {
 
   return (
     <group>
-      <mesh ref={meshRef} position={[0, 0, 0]} receiveShadow>
+      <mesh ref={meshRef} position={[0, 0, 0]} receiveShadow castShadow>
         {renderGeometry()}
         <meshStandardMaterial
-          color="#29b6f6"
-          metalness={0.6}
-          roughness={0.4}
+          color="#55ff55"
+          metalness={0.1}
+          roughness={0.9}
           transparent
-          opacity={showWireframe ? 0.15 : 0.3}
+          opacity={showWireframe ? 0.2 : 0.4}
           side={THREE.DoubleSide}
+          flatShading={true}
         />
       </mesh>
       
@@ -41,7 +42,7 @@ function Habitat({ shape, dimensions, showWireframe }) {
       {showWireframe && (
         <lineSegments position={[0, 0, 0]}>
           <edgesGeometry attach="geometry" args={[meshRef.current?.geometry]} />
-          <lineBasicMaterial color="#29b6f6" opacity={0.4} transparent />
+          <lineBasicMaterial color="#000000" opacity={0.8} transparent linewidth={2} />
         </lineSegments>
       )}
     </group>
@@ -50,28 +51,40 @@ function Habitat({ shape, dimensions, showWireframe }) {
 
 function Grid() {
   return (
-    <gridHelper args={[50, 50, '#29b6f6', '#1e2235']} position={[0, -0.01, 0]} />
+    <>
+      <gridHelper args={[50, 50, '#555555', '#2d2d2d']} position={[0, -0.01, 0]} />
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.02, 0]} receiveShadow>
+        <planeGeometry args={[100, 100]} />
+        <meshStandardMaterial 
+          color="#3c3c3c" 
+          roughness={1.0}
+          metalness={0.0}
+          flatShading={true}
+        />
+      </mesh>
+    </>
   );
 }
 
 function Lights() {
   return (
     <>
-      <ambientLight intensity={0.5} />
+      <ambientLight intensity={0.6} color="#ffffff" />
       <directionalLight
-        position={[10, 15, 5]}
-        intensity={1.0}
+        position={[20, 30, 10]}
+        intensity={1.2}
         castShadow
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
-        shadow-camera-left={-20}
-        shadow-camera-right={20}
-        shadow-camera-top={20}
-        shadow-camera-bottom={-20}
+        shadow-camera-left={-30}
+        shadow-camera-right={30}
+        shadow-camera-top={30}
+        shadow-camera-bottom={-30}
+        color="#ffffff"
       />
-      <pointLight position={[-10, 5, -10]} intensity={0.4} color="#4dd0e1" />
-      <pointLight position={[10, -5, 10]} intensity={0.4} color="#29b6f6" />
-      <hemisphereLight intensity={0.3} color="#4dd0e1" groundColor="#1e2235" />
+      <pointLight position={[-15, 10, -15]} intensity={0.3} color="#ffaa00" />
+      <pointLight position={[15, 10, 15]} intensity={0.3} color="#55ff55" />
+      <hemisphereLight intensity={0.4} color="#87ceeb" groundColor="#3c3c3c" />
     </>
   );
 }
@@ -97,6 +110,10 @@ export default function HabitatScene({
 
   return (
     <>
+      {/* Minecraft-style sky */}
+      <color attach="background" args={['#87ceeb']} />
+      <fog attach="fog" args={['#87ceeb', 30, 100]} />
+      
       <Lights />
       <Habitat shape={config.shape} dimensions={dimensions} showWireframe={modules.length > 0} />
       <Grid />

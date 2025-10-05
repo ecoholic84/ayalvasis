@@ -87,11 +87,12 @@ export default function DraggableModule({
         <meshStandardMaterial
           color={moduleInfo.color}
           transparent
-          opacity={isSelected ? 0.9 : hovered ? 0.85 : 0.75}
-          metalness={0.3}
-          roughness={0.7}
+          opacity={isSelected ? 0.95 : hovered ? 0.9 : 0.85}
+          metalness={0.0}
+          roughness={1.0}
+          flatShading={true}
           emissive={moduleInfo.color}
-          emissiveIntensity={isSelected ? 0.3 : hovered ? 0.2 : 0.1}
+          emissiveIntensity={isSelected ? 0.4 : hovered ? 0.3 : 0.15}
         />
       </mesh>
 
@@ -99,9 +100,9 @@ export default function DraggableModule({
       <lineSegments position={module.position}>
         <edgesGeometry args={[new THREE.BoxGeometry(width, height, depth)]} />
         <lineBasicMaterial 
-          color={isSelected ? '#4dd0e1' : '#29b6f6'} 
-          linewidth={2}
-          opacity={isSelected ? 1 : 0.5}
+          color={isSelected ? '#000000' : '#222222'} 
+          linewidth={3}
+          opacity={isSelected ? 1 : 0.7}
           transparent
         />
       </lineSegments>
@@ -110,19 +111,22 @@ export default function DraggableModule({
       {(isSelected || hovered) && (
         <Html position={[module.position[0], module.position[1] + height / 2 + 0.5, module.position[2]]}>
           <div style={{
-            background: 'rgba(30, 34, 53, 0.95)',
-            color: '#29b6f6',
-            padding: '6px 12px',
-            borderRadius: '6px',
-            border: '1px solid #29b6f6',
-            fontSize: '12px',
-            fontWeight: '600',
+            background: '#2d2d2d',
+            color: '#ffff55',
+            padding: '8px 12px',
+            borderRadius: '0',
+            border: '3px solid #000000',
+            fontSize: '10px',
+            fontWeight: '400',
+            fontFamily: '"Press Start 2P", monospace',
             whiteSpace: 'nowrap',
             pointerEvents: 'none',
             textAlign: 'center',
+            boxShadow: '4px 4px 0px #000000',
+            textShadow: '2px 2px 0px #000000',
           }}>
             {moduleInfo.icon} {moduleInfo.name}
-            <div style={{ fontSize: '10px', opacity: 0.8, marginTop: '2px' }}>
+            <div style={{ fontSize: '8px', color: '#55ff55', marginTop: '4px', textShadow: '1px 1px 0px #000000' }}>
               {(width * height * depth).toFixed(1)} m³
             </div>
           </div>
