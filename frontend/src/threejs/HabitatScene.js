@@ -12,6 +12,12 @@ function Habitat({ shape, dimensions, showWireframe }) {
     switch (shape) {
       case 'cylinder':
         return <cylinderGeometry args={[x / 2, x / 2, y, 32]} />;
+      case 'capsule': {
+        // Capsule: rounded ends like a pill/airstream trailer
+        const radius = Math.min(x, z) / 2;
+        const length = Math.max(0.1, y - 2 * radius);
+        return <capsuleGeometry args={[radius, length, 8, 24]} />;
+      }
       case 'sphere':
         return <sphereGeometry args={[x / 2, 32, 32]} />;
       case 'dome':

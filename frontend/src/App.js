@@ -5,6 +5,7 @@ import MetricsBar from './components/MetricsBar';
 import ModuleLibrary from './components/ModuleLibrary';
 import ModuleManager from './components/ModuleManager';
 import ModuleProperties from './components/ModuleProperties';
+import PresetSelector from './components/PresetSelector';
 import ZoomIndicator from './components/ZoomIndicator';
 import HabitatScene from './threejs/HabitatScene';
 import MinecraftControls from './threejs/MinecraftControls';
@@ -31,6 +32,7 @@ export default function App() {
   const [selectedModuleId, setSelectedModuleId] = useState(null);
   const [showModuleLibrary, setShowModuleLibrary] = useState(false);
   const [showModuleManager, setShowModuleManager] = useState(false);
+  const [showPresetSelector, setShowPresetSelector] = useState(false);
   const [editingModule, setEditingModule] = useState(null);
 
   // Calculate volume whenever config changes
@@ -106,6 +108,22 @@ export default function App() {
     ));
   };
 
+  const handleLoadPreset = (presetData) => {
+    setConfig({
+      name: presetData.name,
+      shape: presetData.shape,
+      crew_size: presetData.crew_size,
+      mission_duration: presetData.mission_duration,
+      mission_type: presetData.mission_type,
+      dimension_x: presetData.dimension_x,
+      dimension_y: presetData.dimension_y,
+      dimension_z: presetData.dimension_z,
+      layout_data: presetData.layout_data,
+    });
+    setModules(presetData.layout_data.modules);
+    setSelectedModuleId(null);
+  };
+
   const handleSave = async () => {
     try {
       const dataToSave = {
@@ -163,6 +181,7 @@ export default function App() {
         onConfigChange={setConfig}
         onSave={handleSave}
         onLoad={handleLoad}
+        onLoadPreset={() => setShowPresetSelector(true)}
       />
       
       <div className="canvas-container">
@@ -249,6 +268,14 @@ export default function App() {
           onUpdate={handleModuleUpdate}
           onDelete={handleDeleteModule}
           onClose={() => setEditingModule(null)}
+        />
+      )}
+
+      {/* Preset Selector Modal */}
+      {showPresetSelector && (
+        <PresetSelector
+          onLoadPreset={handleLoadPreset}
+          onClose={() => setShowPresetSelector(false)}
         />
       )}
     </div>

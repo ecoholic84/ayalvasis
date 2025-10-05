@@ -1,7 +1,7 @@
 import React from 'react';
 import './Sidebar.css';
 
-export default function Sidebar({ config, onConfigChange, onSave, onLoad }) {
+export default function Sidebar({ config, onConfigChange, onSave, onLoad, onLoadPreset }) {
   const handleChange = (field, value) => {
     onConfigChange({ ...config, [field]: value });
   };
@@ -31,6 +31,7 @@ export default function Sidebar({ config, onConfigChange, onSave, onLoad }) {
           >
             <option value="cube">Cube</option>
             <option value="cylinder">Cylinder</option>
+            <option value="capsule">Capsule</option>
             <option value="sphere">Sphere</option>
             <option value="dome">Dome</option>
             <option value="torus">Torus</option>
@@ -113,6 +114,9 @@ export default function Sidebar({ config, onConfigChange, onSave, onLoad }) {
       </div>
 
       <div className="section actions">
+        <button className="btn-primary" onClick={onLoadPreset}>
+          🚀 Load Preset
+        </button>
         <button className="btn-primary" onClick={onSave}>
           💾 Save Habitat
         </button>

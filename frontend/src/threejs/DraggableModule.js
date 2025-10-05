@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useMemo } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Html } from '@react-three/drei';
 import * as THREE from 'three';
@@ -20,6 +20,76 @@ export default function DraggableModule({
 
   const moduleInfo = MODULE_TYPES[module.type.toUpperCase()];
   const [width, height, depth] = module.size;
+
+  // Choose geometry by module type for more realistic shapes
+  const { geometryElement, edgesBaseGeometry } = useMemo(() => {
+    const type = module.type.toUpperCase();
+
+    // Helpers
+    const minWD = Math.min(width, depth);
+
+    switch (type) {
+      case 'AIRLOCK': {
+        // Pressurized cylindrical chamber
+        const radius = minWD / 2;
+        return {
+          geometryElement: (
+            <cylinderGeometry args={[radius, radius, height, 24]} />
+          ),
+          edgesBaseGeometry: new THREE.CylinderGeometry(radius, radius, height, 12)
+        };
+      }
+      case 'SLEEPING': {
+        // Crew quarters as capsule
+        const radius = Math.min(minWD / 2, height / 2);
+        const straight = Math.max(0.01, height - 2 * radius);
+        return {
+          geometryElement: (
+            <capsuleGeometry args={[radius, straight, 8, 16]} />
+          ),
+          edgesBaseGeometry: new THREE.CapsuleGeometry(radius, straight, 4, 8)
+        };
+      }
+      case 'EXERCISE': {
+        // Open ring area
+        const major = minWD / 2;
+        const tube = Math.max(0.1, Math.min(width, depth) / 6);
+        return {
+          geometryElement: (
+            <torusGeometry args={[major, tube, 12, 24]} />
+          ),
+          edgesBaseGeometry: new THREE.TorusGeometry(major, tube, 8, 16)
+        };
+      }
+      case 'RECREATION': {
+        // Lounge sphere/dome
+        const radius = Math.min(width, height, depth) / 2;
+        return {
+          geometryElement: (
+            <sphereGeometry args={[radius, 24, 16]} />
+          ),
+          edgesBaseGeometry: new THREE.SphereGeometry(radius, 12, 8)
+        };
+      }
+      case 'LIFE_SUPPORT':
+      case 'FOOD_PREP':
+      case 'HYGIENE':
+      case 'MEDICAL':
+      case 'STOWAGE':
+      case 'MAINTENANCE':
+      case 'RESEARCH':
+      case 'COMMAND':
+      default: {
+        // Default to rectangular module
+        return {
+          geometryElement: (
+            <boxGeometry args={[width, height, depth]} />
+          ),
+          edgesBaseGeometry: new THREE.BoxGeometry(width, height, depth)
+        };
+      }
+    }
+  }, [module.type, width, height, depth]);
 
   // Handle drag and double-click
   const handlePointerDown = (e) => {
@@ -100,7 +170,7 @@ export default function DraggableModule({
         castShadow
         receiveShadow
       >
-        <boxGeometry args={[width, height, depth]} />
+        {geometryElement}
         <meshStandardMaterial
           color={moduleInfo.color}
           transparent
@@ -115,7 +185,7 @@ export default function DraggableModule({
 
       {/* Wireframe outline */}
       <lineSegments position={module.position}>
-        <edgesGeometry args={[new THREE.BoxGeometry(width, height, depth)]} />
+        <edgesGeometry args={[edgesBaseGeometry]} />
         <lineBasicMaterial 
           color={isSelected ? '#000000' : '#222222'} 
           linewidth={3}
