@@ -1,6 +1,7 @@
 {
-  "name": "habitat-layout-creator",
-  "version": "0.1.0",
+  "name": "nilayasrishti",
+  "version": "1.0.0",
+  "description": "NilayaSrishti - Space Habitat Design & Engineering Platform for Future Missions",
   "private": true,
   "dependencies": {
     "@react-three/fiber": "^8.15.0",
@@ -13,6 +14,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:prod": "GENERATE_SOURCEMAP=false react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

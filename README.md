@@ -1,9 +1,20 @@
-<<<<<<< HEAD
-# 🛰️ Habitat Layout Creator
+# 🛰️ NilayaSrishti
 
-**NASA Space Apps Challenge 2025**
+**निलयसृष्टि - Creating Cosmic Dwellings**
 
-A full-stack web application for designing and visualizing space habitats for lunar, Martian, or orbital missions. Built with React + Three.js (frontend) and Django REST Framework (backend).
+> Building Homes Among the Stars
+
+A NASA-grade space habitat design platform that makes complex aerospace engineering accessible. Design realistic space stations for Moon, Mars, and deep space missions using real mathematical validation and professional engineering standards.
+
+**Nilaya** (निलय) = Dwelling • **Srishti** (सृष्टि) = Creation
+
+---
+
+## 🎥 Demo Video
+
+[![NilayaSrishti Demo](https://img.shields.io/badge/▶️-Watch_Demo-red?style=for-the-badge)](./NilayaSrishti.mp4)
+
+**[📹 View Demo Video](./NilayaSrishti.mp4)** - See NilayaSrishti in action!
 
 ---
 
@@ -11,16 +22,17 @@ A full-stack web application for designing and visualizing space habitats for lu
 
 ### Core Functionalities
 - **Interactive 3D Visualization** - Real-time habitat rendering with Three.js
-- **Drag-and-Drop Module Placement** - Interactive 3D module positioning system
-- **12 Functional Module Types** - NASA-standard areas (Life Support, Hygiene, Sleeping, etc.)
-- **Multiple Habitat Shapes** - Cylinder, Sphere, Dome, Torus, Cube
-- **Mission Configuration** - Set crew size, mission duration, and destination (Moon/Mars/Orbit)
-- **Intelligent Sizing** - Auto-calculate minimum module sizes based on crew and mission
-- **Volume Calculations** - Real-time total volume and per-crew space tracking
-- **Constraint Validation Engine** - Real-time feedback on NASA volume/spacing/adjacency rules
-- **Space Utilization Tracking** - Monitor how efficiently habitat volume is used
-- **Data Persistence** - Save and load complete habitat designs with module layouts
-- **NASA Presets** - Pre-configured layouts based on real mission designs
+- **Realistic Module Shapes** - Cylinders, capsules, spheres, toruses, and boxes
+- **12 NASA-Compliant Module Types** - Based on NASA-STD-3001 standards
+- **6 Habitat Shapes** - Cylinder, Capsule, Sphere, Dome, Torus, Cube
+- **9 Professional Presets** - ISS-inspired, Mars Base, Lunar Gateway, and more
+- **Mathematical Validation** - Real-time volume calculations with 6 different formulas
+- **Double-Click Editing** - Comprehensive module properties panel
+- **Export/Import System** - Share designs as JSON files
+- **Extreme Zoom** - 1000x range (0.5m to 500m) with dynamic speed
+- **Retro Gaming Aesthetic** - Minecraft-inspired professional design
+- **Sidebar Toggle** - Maximize workspace when needed
+- **Error-Free Presentation Mode** - Perfect for demos and presentations
 
 ### UI Features
 - **Space-themed dark UI** with neon blue highlights
@@ -252,24 +264,52 @@ See [INTERACTIVE_FEATURES.md](INTERACTIVE_FEATURES.md) for detailed usage guide.
 ## 🛠️ Tech Stack
 
 **Frontend:**
-- React 18
-- Three.js + React Three Fiber
-- React Three Drei (helpers)
+- React 18.2
+- Three.js 0.158 + React Three Fiber
+- React Three Drei (3D helpers)
+- Press Start 2P (Retro pixel font)
 
-**Backend:**
-- Django 4.2
-- Django REST Framework
-- SQLite (development)
+**Architecture:**
+- Web-based platform (no installation required)
+- Client-side only (no backend needed)
+- JSON-based export/import
+- Local browser storage
 
 **Styling:**
-- Custom CSS with space theme
-- Neon blue (#29b6f6) accent color
+- Minecraft-inspired retro aesthetic
+- Press Start 2P typography
+- Green (#55ff55) and Yellow (#ffff55) theme
+- Blocky borders and hard shadows
+
+---
+
+## 📐 Mathematical Formulas
+
+NilayaSrishti uses accurate geometric formulas for volume calculations:
+
+- **Cylinder:** V = π × r² × h
+- **Capsule:** V = π × r² × h + (4/3) × π × r³
+- **Sphere:** V = (4/3) × π × r³
+- **Dome:** V = (2/3) × π × r² × h
+- **Torus:** V = 2 × π² × R × r²
+- **Box:** V = L × W × H
+
+---
+
+## 🎓 Educational Value
+
+Perfect for teaching:
+- 3D geometry and volume calculations
+- Space engineering principles
+- Human factors in space
+- Mission planning concepts
+- NASA standards and requirements
 
 ---
 
 ## 📝 License
 
-This project is created for the NASA Space Apps Challenge 2025.
+This project is created for educational purposes and space exploration advocacy.
 
 ---
 
@@ -285,76 +325,14 @@ For questions or feedback, please open an issue on GitHub.
 
 ---
 
-**Built with ❤️ for NASA Space Apps Challenge 2025**
-=======
-# Getting Started with Create React App
+## 🙏 Acknowledgments
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- **NASA** - For NASA-STD-3001 standards and ISS specifications
+- **Sanskrit Heritage** - For the beautiful name combining निलय (Dwelling) and सृष्टि (Creation)
+- **Space Community** - For inspiration and mission concepts
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+**Built with ❤️ for Space Exploration and STEM Education**
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
->>>>>>> f2334ba (Initial commit from local spaceapp project)
+**NilayaSrishti** - निलयसृष्टि - Creating Homes Among the Stars 🛰️

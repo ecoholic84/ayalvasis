@@ -135,20 +135,39 @@ export default function App() {
     setSelectedModuleId(null);
   };
 
-  // 🔹 Save Habitat
-  const handleSave = async () => {
+  // 🔹 Export Habitat to JSON file
+  const handleExport = () => {
     try {
-      const dataToSave = {
-        ...config,
-        total_volume: totalVolume,
-        layout_data: { modules },
+      const exportData = {
+        version: '1.0.0',
+        exportDate: new Date().toISOString(),
+        habitat: {
+          ...config,
+          total_volume: totalVolume,
+          modules: modules,
+        },
       };
-      const result = await habitatApi.createHabitat(dataToSave);
-      alert(`Habitat "${result.name}" saved successfully! ID: ${result.id}`);
-      loadHabitats();
+
+      // Create JSON blob
+      const jsonString = JSON.stringify(exportData, null, 2);
+      const blob = new Blob([jsonString], { type: 'application/json' });
+      
+      // Create download link
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${config.name.replace(/\s+/g, '_')}_${Date.now()}.json`;
+      
+      // Trigger download
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      
+      alert(`Habitat "${config.name}" exported successfully!`);
     } catch (error) {
-      console.error('Error saving habitat:', error);
-      alert('Failed to save habitat. Make sure the backend is running.');
+      console.error('Error exporting habitat:', error);
+      alert('Failed to export habitat.');
     }
   };
 
@@ -163,23 +182,63 @@ export default function App() {
     }
   };
 
-  const handleLoad = async () => {
+  // 🔹 Import Habitat from JSON file
+  const handleImport = () => {
     try {
-      await loadHabitats();
-      if (savedHabitats.length > 0) {
-        const lastHabitat = savedHabitats[0];
-        const fullHabitat = await habitatApi.getHabitat(lastHabitat.id);
-        setConfig(fullHabitat);
-        if (fullHabitat.layout_data?.modules) {
-          setModules(fullHabitat.layout_data.modules);
-        }
-        alert(`Loaded habitat: ${fullHabitat.name}`);
-      } else {
-        alert('No saved habitats found.');
-      }
+      // Create file input element
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = '.json';
+      
+      input.onchange = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          try {
+            const importData = JSON.parse(event.target.result);
+            
+            // Validate import data
+            if (!importData.habitat) {
+              throw new Error('Invalid habitat file format');
+            }
+            
+            const habitat = importData.habitat;
+            
+            // Load configuration
+            setConfig({
+              name: habitat.name || 'Imported Habitat',
+              shape: habitat.shape || 'cylinder',
+              crew_size: habitat.crew_size || 4,
+              mission_duration: habitat.mission_duration || 30,
+              mission_type: habitat.mission_type || 'moon',
+              dimension_x: habitat.dimension_x || 10,
+              dimension_y: habitat.dimension_y || 2,
+              dimension_z: habitat.dimension_z || 10,
+              layout_data: {},
+            });
+            
+            // Load modules
+            if (habitat.modules && Array.isArray(habitat.modules)) {
+              setModules(habitat.modules);
+            }
+            
+            setSelectedModuleId(null);
+            alert(`Habitat "${habitat.name}" imported successfully!`);
+          } catch (parseError) {
+            console.error('Error parsing habitat file:', parseError);
+            alert('Failed to import habitat. Invalid file format.');
+          }
+        };
+        
+        reader.readAsText(file);
+      };
+      
+      input.click();
     } catch (error) {
-      console.error('Error loading habitat:', error);
-      alert('Failed to load habitat. Make sure the backend is running.');
+      console.error('Error importing habitat:', error);
+      alert('Failed to import habitat.');
     }
   };
 
@@ -207,8 +266,8 @@ export default function App() {
         <Sidebar
           config={config}
           onConfigChange={setConfig}
-          onSave={handleSave}
-          onLoad={handleLoad}
+          onExport={handleExport}
+          onImport={handleImport}
           onLoadPreset={() => setShowPresetSelector(true)}
         />
       )}

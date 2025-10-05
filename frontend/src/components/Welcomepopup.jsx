@@ -40,8 +40,11 @@ function WelcomePopup() {
       <div className="welcome-modal">
         <div className="welcome-header">
           <div className="welcome-icon">🛰️</div>
-          <h1 className="welcome-title">Space Habitat Builder</h1>
-          <div className="welcome-subtitle">NASA-Grade Design Tool</div>
+          <h1 className="welcome-title">NilayaSrishti</h1>
+          <div className="welcome-subtitle">Space Habitat Design Platform</div>
+          <div className="welcome-subtitle" style={{ fontSize: '0.45rem', marginTop: '8px', color: '#888888' }}>
+            निलय (Dwelling) + सृष्टि (Creation)
+          </div>
         </div>
 
         <div className="welcome-features">

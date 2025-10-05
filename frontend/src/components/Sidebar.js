@@ -1,14 +1,25 @@
 import React from 'react';
 import './Sidebar.css';
 
-export default function Sidebar({ config, onConfigChange, onSave, onLoad, onLoadPreset }) {
+export default function Sidebar({ config, onConfigChange, onExport, onImport, onLoadPreset }) {
   const handleChange = (field, value) => {
     onConfigChange({ ...config, [field]: value });
   };
 
   return (
     <div className="sidebar">
-      <h2>🛰️ Habitat Creator</h2>
+      <h2>🛰️ NilayaSrishti</h2>
+      <div style={{ 
+        fontSize: '0.4rem', 
+        color: '#aaaaaa', 
+        marginTop: '-8px', 
+        marginBottom: '16px',
+        fontFamily: 'Press Start 2P, monospace',
+        textAlign: 'center',
+        lineHeight: '1.4'
+      }}>
+        Space Habitat Designer
+      </div>
       
       <div className="section">
         <h3>Basic Configuration</h3>
@@ -117,11 +128,11 @@ export default function Sidebar({ config, onConfigChange, onSave, onLoad, onLoad
         <button className="btn-primary" onClick={onLoadPreset}>
           🚀 Load Preset
         </button>
-        <button className="btn-primary" onClick={onSave}>
-          💾 Save Habitat
+        <button className="btn-primary" onClick={onExport}>
+          📥 Export Layout
         </button>
-        <button className="btn-secondary" onClick={onLoad}>
-          📂 Load Habitat
+        <button className="btn-secondary" onClick={onImport}>
+          📤 Import Layout
         </button>
       </div>
     </div>
