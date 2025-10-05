@@ -12,9 +12,12 @@ A NASA-grade space habitat design platform that makes complex aerospace engineer
 
 ## 🎥 Demo Video
 
-[![NilayaSrishti Demo](https://img.shields.io/badge/▶️-Watch_Demo-red?style=for-the-badge)](./NilayaSrishti.mp4)
+<video width="100%" controls>
+  <source src="./NilayaSrishti.webm" type="video/webm">
+  Your browser does not support the video tag. <a href="./NilayaSrishti.webm">Download the demo video</a>
+</video>
 
-**[📹 View Demo Video](./NilayaSrishti.mp4)** - See NilayaSrishti in action!
+**See NilayaSrishti in action!** - Interactive 3D habitat design with NASA-compliant validation
 
 ---
 
