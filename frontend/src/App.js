@@ -11,8 +11,6 @@ import HabitatScene from './threejs/HabitatScene';
 import MinecraftControls from './threejs/MinecraftControls';
 import { habitatApi } from './api/habitatApi';
 import { calculateMinimumHabitatVolume } from './data/moduleLibrary';
-import Home from './components/Home';
-import Welcomepopup from './components/Welcomepopup';
 import './App.css';
 
 export default function App() {
@@ -66,6 +64,13 @@ export default function App() {
       case 'cylinder': {
         const radius = dimension_x / 2;
         return PI * radius * radius * dimension_y;
+      }
+      case 'capsule': {
+        const radius = Math.min(dimension_x, dimension_z) / 2;
+        const cylinderHeight = Math.max(0, dimension_y - 2 * radius);
+        const cylinderVol = PI * radius * radius * cylinderHeight;
+        const sphereVol = (4 / 3) * PI * radius * radius * radius;
+        return cylinderVol + sphereVol;
       }
       case 'sphere': {
         const r = dimension_x / 2;
@@ -189,6 +194,7 @@ export default function App() {
         onConfigChange={setConfig}
         onSave={handleSave}
         onLoad={handleLoad}
+        onLoadPreset={() => setShowPresetSelector(true)}
       />
       
       <div className="canvas-container">
@@ -274,6 +280,14 @@ export default function App() {
           onUpdate={handleModuleUpdate}
           onDelete={handleDeleteModule}
           onClose={() => setEditingModule(null)}
+        />
+      )}
+
+      {/* Preset Selector Modal */}
+      {showPresetSelector && (
+        <PresetSelector
+          onLoadPreset={handleLoadPreset}
+          onClose={() => setShowPresetSelector(false)}
         />
       )}
     </div>
