@@ -9,22 +9,39 @@ export default function DraggableModule({
   isSelected, 
   onSelect, 
   onPositionChange,
+  onDoubleClick,
   habitatBounds 
 }) {
   const meshRef = useRef();
   const [isDragging, setIsDragging] = useState(false);
   const [hovered, setHovered] = useState(false);
   const { camera, gl, raycaster, scene } = useThree();
+  const lastClickTimeRef = useRef(0);
 
   const moduleInfo = MODULE_TYPES[module.type.toUpperCase()];
   const [width, height, depth] = module.size;
 
-  // Handle drag
+  // Handle drag and double-click
   const handlePointerDown = (e) => {
-    e.stopPropagation();
-    setIsDragging(true);
-    onSelect(module.id);
-    gl.domElement.style.cursor = 'grabbing';
+    e.stopPropagation(); // Prevent camera controls from activating
+    
+    // Check for double-click
+    const currentTime = Date.now();
+    const timeSinceLastClick = currentTime - lastClickTimeRef.current;
+    
+    if (timeSinceLastClick < 300) { // 300ms double-click threshold
+      // Double-click detected
+      if (onDoubleClick) {
+        onDoubleClick(module);
+      }
+      lastClickTimeRef.current = 0; // Reset
+    } else {
+      // Single click - start dragging
+      setIsDragging(true);
+      onSelect(module.id);
+      gl.domElement.style.cursor = 'grabbing';
+      lastClickTimeRef.current = currentTime;
+    }
   };
 
   const handlePointerUp = () => {

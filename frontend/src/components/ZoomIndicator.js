@@ -12,6 +12,18 @@ export default function ZoomIndicator() {
         </div>
       </div>
       <div className="zoom-hint" style={{ marginTop: '8px' }}>
+        <span className="zoom-icon">🔄</span>
+        <div className="zoom-controls">
+          <div className="control-item">L-DRAG</div>
+        </div>
+      </div>
+      <div className="zoom-hint" style={{ marginTop: '8px' }}>
+        <span className="zoom-icon">✋</span>
+        <div className="zoom-controls">
+          <div className="control-item">M-DRAG</div>
+        </div>
+      </div>
+      <div className="zoom-hint" style={{ marginTop: '8px' }}>
         <span className="zoom-icon">📦</span>
         <div className="zoom-controls">
           <div className="control-item">N</div>

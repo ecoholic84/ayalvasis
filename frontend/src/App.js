@@ -4,6 +4,7 @@ import Sidebar from './components/Sidebar';
 import MetricsBar from './components/MetricsBar';
 import ModuleLibrary from './components/ModuleLibrary';
 import ModuleManager from './components/ModuleManager';
+import ModuleProperties from './components/ModuleProperties';
 import ZoomIndicator from './components/ZoomIndicator';
 import HabitatScene from './threejs/HabitatScene';
 import MinecraftControls from './threejs/MinecraftControls';
@@ -30,6 +31,7 @@ export default function App() {
   const [selectedModuleId, setSelectedModuleId] = useState(null);
   const [showModuleLibrary, setShowModuleLibrary] = useState(false);
   const [showModuleManager, setShowModuleManager] = useState(false);
+  const [editingModule, setEditingModule] = useState(null);
 
   // Calculate volume whenever config changes
   useEffect(() => {
@@ -91,6 +93,16 @@ export default function App() {
   const handleModulePositionChange = (moduleId, newPosition) => {
     setModules(modules.map(m => 
       m.id === moduleId ? { ...m, position: newPosition } : m
+    ));
+  };
+
+  const handleModuleDoubleClick = (module) => {
+    setEditingModule(module);
+  };
+
+  const handleModuleUpdate = (updatedModule) => {
+    setModules(modules.map(m => 
+      m.id === updatedModule.id ? updatedModule : m
     ));
   };
 
@@ -164,14 +176,15 @@ export default function App() {
             selectedModuleId={selectedModuleId}
             onSelectModule={setSelectedModuleId}
             onModulePositionChange={handleModulePositionChange}
+            onModuleDoubleClick={handleModuleDoubleClick}
           />
           <MinecraftControls
             enablePan={true}
             enableZoom={true}
             enableRotate={true}
-            minDistance={5}
-            maxDistance={80}
-            zoomSpeed={1.5}
+            minDistance={0.5}
+            maxDistance={500}
+            zoomSpeed={2.0}
             followCursor={true}
             followSpeed={0.05}
           />
@@ -225,6 +238,17 @@ export default function App() {
           crewSize={config.crew_size}
           onAddModule={handleAddModule}
           onClose={() => setShowModuleLibrary(false)}
+        />
+      )}
+
+      {/* Module Properties Modal */}
+      {editingModule && (
+        <ModuleProperties
+          module={editingModule}
+          crewSize={config.crew_size}
+          onUpdate={handleModuleUpdate}
+          onDelete={handleDeleteModule}
+          onClose={() => setEditingModule(null)}
         />
       )}
     </div>

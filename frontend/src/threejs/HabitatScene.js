@@ -94,7 +94,8 @@ export default function HabitatScene({
   modules = [], 
   selectedModuleId, 
   onSelectModule, 
-  onModulePositionChange 
+  onModulePositionChange,
+  onModuleDoubleClick 
 }) {
   const dimensions = [
     config.dimension_x || 10,
@@ -126,6 +127,7 @@ export default function HabitatScene({
           isSelected={selectedModuleId === module.id}
           onSelect={onSelectModule}
           onPositionChange={onModulePositionChange}
+          onDoubleClick={onModuleDoubleClick}
           habitatBounds={habitatBounds}
         />
       ))}
